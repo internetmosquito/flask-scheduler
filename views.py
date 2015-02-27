@@ -4,6 +4,7 @@ from functools import wraps
 import sqlite3
 from time import localtime, strftime
 from forms import AddAppointmentForm
+import dateutil.parser
 
 app = Flask(__name__)
 app.config.from_object('config')
@@ -61,14 +62,22 @@ def new_appointment():
     g.db = connect_db()
     name = request.form['name']
     date = request.form['due_date']
+
     priority = request.form['priority']
     if not name or not date or not priority:
         flash("All fields are required. Please try again.")
         return redirect(url_for('appointments'))
     else:
+        #Make sure date provide is in valid format
+        try:
+            d1 = dateutil.parser.parse(date)
+        except Exception:
+            flash("Provided datetime has invalid format, please provide YYYY-mm-dd HH:MM:ss")
+            return redirect(url_for('appointments'))
+
         g.db.execute('insert into appointments (name, due_date, priority) values (?, ?, ?)',
                     [request.form['name'],
-                     request.form['due_date'],
+                     d1.strftime("%Y-%m-%d %H:%M:%S"),
                      request.form['priority']])
     g.db.commit()
     g.db.close()

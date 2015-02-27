@@ -12,8 +12,8 @@
                 <input type="text" class="form-control" name="name" placeholder="Name">
             </div>
             <div class="form-group">
-                <label>Due Date (mm/dd/yyyy):</label>
-                <input type="text" name="due_date" class="form-control" placeholder="i.e. 03/14/2015">
+                <label>Due Date (yyyy-mm-dd):</label>
+                <input type="text" name="due_date" class="form-control" placeholder="i.e. 2015-03-15 19:30:00">
             </div>
             <div class="form-group">
                 <label>Priority:</label>
@@ -55,7 +55,7 @@
                 <td>{{ o.due_date }}</td>
                 <td>{{ o.priority }}</td>
                 <td>
-                    <a href="{{ url_for('delete_entry', task_id = o.task_id) }}">Delete</a>
+                    <a href="{{ url_for('delete_entry', appointment_id = o.appointment_id) }}">Delete</a>
                 </td>
             </tr>
             {% endfor %}
