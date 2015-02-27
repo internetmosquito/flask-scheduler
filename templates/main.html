@@ -1,0 +1,29 @@
+{% extends "template.html" %}
+{% block content %}
+    <h2>Welcome to the Flask Scheduler!</h2>
+    <p><a href="/logout">Logout</a></p>
+    <h3>Add a new post:</h3>
+        <form action="{{ url_for('add') }}" method="post" class="add">
+            <div class="form-group">
+                <label>Title:</label>
+                <input type="text" class="form-control" placeholder="Enter post title">
+            </div>
+            <div class="form-group">
+                <label>Post:</label>
+                <textarea class="form-control" rows="3"></textarea>
+            </div>
+            <div class="form-group">
+
+            </div>
+
+            <input class="btn btn-inverse" type="submit" value="Save">
+        </form>
+    <br>
+    <br>
+    <h3>Posts:</h3>
+    {% for p in posts %}
+        <strong>Title:</strong> {{ p.title }} <br/>
+        <strong>Post:</strong> {{ p.post }} <br/>
+    <br/>
+    {% endfor %}
+{% endblock %}

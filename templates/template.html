@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Flask Scheduler</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap_231.css') }}">
+    </head>
+    <body>
+        <div class="container">
+            <img src="{{ url_for('static', filename='img/logo.png') }}" class="img-polaroid">
+            {% for message in get_flashed_messages() %}
+                <div class="flash">
+                    <p class="text-info">{{ message }}</p></div>
+            {% endfor %}
+            {% if error %}
+                <p class="text-error"><strong>Error:</strong> {{ error }}</p>
+            {% endif %}
+            {% block content %}
+            {% endblock %}
+        </div>
+    </body>
+</html>
