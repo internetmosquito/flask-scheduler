@@ -49,7 +49,7 @@ def appointments():
     cur = g.db.execute('select name, due_date, priority, appointment_id from appointments where due_date >= ?', (current_datetime,))
     future_appointments = [dict(name=row[0], due_date=row[1], priority=row[2], appointment_id=row[3]) for row in cur.fetchall()]
     cur = g.db.execute('select name, due_date, priority, appointment_id from appointments where due_date < ?', (current_datetime,))
-    past_appointments = [dict(name=row[0], due_date=row[1], priority=row[2], task_id=row[3]) for row in cur.fetchall()]
+    past_appointments = [dict(name=row[0], due_date=row[1], priority=row[2], appointment_id=row[3]) for row in cur.fetchall()]
     g.db.close()
     return render_template('appointments.html',
     form = AddAppointmentForm(request.form), future_appointments=future_appointments, past_appointments=past_appointments)

@@ -1,6 +1,5 @@
 {% extends "template.html" %}
 {% block content %}
-<br>
 <div>
     <a class="btn btn-danger" href="/logout">Logout</a>
 </div>
@@ -31,8 +30,9 @@
                             <option value="10">10</option>
                 </select>
             </div>
-
-            <button type="submit" class="btn success" value="Save">Save</button>
+             <div class="form-group">
+                <button type="submit" class="btn btn-success" value="Save">Save</button>
+             </div>
         </form>
 </div>
 <div class="entries">
@@ -40,20 +40,20 @@
     <br>
     <h3>Future appointments:</h3>
     <div class="datagrid">
-        <table>
+        <table class="table">
             <thead>
                 <tr>
-                    <th width="300px"><strong>Appointment</strong></th>
-                    <th width="100px"><strong>Due Date</strong></th>
-                    <th width="50px"><strong>Priority</strong></th>
-                    <th><strong>Actions</strong></th>
+                    <th>Appointment</th>
+                    <th>Due Date</th>
+                    <th>Priority</th>
+                    <th>Actions</th>
                 </tr>
             </thead>
             {% for o in future_appointments %}
             <tr>
-                <td width="300px">{{ o.name }}</td>
-                <td width="100px">{{ o.due_date }}</td>
-                <td width="50px">{{ o.priority }}</td>
+                <td>{{ o.name }}</td>
+                <td>{{ o.due_date }}</td>
+                <td>{{ o.priority }}</td>
                 <td>
                     <a href="{{ url_for('delete_entry', task_id = o.task_id) }}">Delete</a>
                 </td>
@@ -67,20 +67,20 @@
 <div class="entries">
     <h3>Past appointments:</h3>
     <div class="datagrid">
-        <table>
+        <table class="table">
             <thead>
                 <tr>
-                    <th width="300px"><strong>Appointment</strong></th>
-                    <th width="100px"><strong>Due Date</strong></th>
-                    <th width="50px"><strong>Priority</strong></th>
-                    <th><strong>Actions</strong></th>
+                    <th>Appointment</th>
+                    <th>Due Date</th>
+                    <th>Priority</th>
+                    <th>Actions</th>
                 </tr>
             </thead>
             {% for c in past_appointments %}
                 <tr>
-                    <td width="300px">{{ c.name }}</td>
-                    <td width="100px">{{ c.due_date }}</td>
-                    <td width="50px">{{ c.priority }}</td>
+                    <td>{{ c.name }}</td>
+                    <td>{{ c.due_date }}</td>
+                    <td>{{ c.priority }}</td>
                     <td>
                         <a href="{{ url_for('delete_entry', appointment_id = c.appointment_id) }}">Delete</a>
                     </td>
