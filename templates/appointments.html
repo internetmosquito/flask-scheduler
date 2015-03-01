@@ -6,7 +6,7 @@
 <div class="add-task">
     <h3>Add a new appointment:</h3>
         <form class="form-horizontal" action="{{ url_for('new_appointment') }}" method="post">
-
+            {{ form.csrf_token }}
             <div class="form-group">
                 <label >Name:</label>
                 <input type="text" class="form-control" name="name" placeholder="Name">
