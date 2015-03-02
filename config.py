@@ -5,8 +5,7 @@ import os
 basedir = os.path.abspath(os.path.dirname(__file__))
 
 DATABASE = 'scheduler.db'
-USERNAME = 'admin'
-PASSWORD = 'admin'
+
 # avoid cross site attacks
 WTF_CSRF_ENABLED = True
 SECRET_KEY = 'super_secret_password'

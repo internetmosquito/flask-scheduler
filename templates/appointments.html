@@ -46,7 +46,8 @@
                     <th>Appointment</th>
                     <th>Due Date</th>
                     <th>Priority</th>
-                    <th>Actions</th>
+                    <th>Posted Date</th>
+                    <th>Posted By</th>
                 </tr>
             </thead>
             {% for o in future_appointments %}
@@ -54,6 +55,8 @@
                 <td>{{ o.name }}</td>
                 <td>{{ o.due_date }}</td>
                 <td>{{ o.priority }}</td>
+                <td>{{ o.posted_date }}</td>
+                <td >{{ o.poster.name }}</td>
                 <td>
                     <a href="{{ url_for('delete_entry', appointment_id = o.appointment_id) }}">Delete</a>
                 </td>
@@ -73,14 +76,17 @@
                     <th>Appointment</th>
                     <th>Due Date</th>
                     <th>Priority</th>
-                    <th>Actions</th>
+                    <th>Posted Date</th>
+                    <th>Posted By</th>
                 </tr>
             </thead>
             {% for c in past_appointments %}
                 <tr>
-                    <td>{{ c.name }}</td>
-                    <td>{{ c.due_date }}</td>
-                    <td>{{ c.priority }}</td>
+                    <td>{{ o.name }}</td>
+                    <td>{{ o.due_date }}</td>
+                    <td>{{ o.priority }}</td>
+                    <td>{{ o.posted_date }}</td>
+                    <td >{{ o.poster.name }}</td>
                     <td>
                         <a href="{{ url_for('delete_entry', appointment_id = c.appointment_id) }}">Delete</a>
                     </td>
