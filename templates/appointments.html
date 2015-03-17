@@ -10,10 +10,24 @@
             <div class="form-group">
                 <label >Name:</label>
                 <input type="text" class="form-control" name="name" placeholder="Name">
+                <span class="error">
+                    {% if form.name.errors %}
+                        {% for error in form.name.errors %}
+                            {{ error }}
+                        {% endfor %}
+                    {% endif %}
+                </span>
             </div>
             <div class="form-group">
                 <label>Due Date (yyyy-mm-dd):</label>
                 <input type="text" name="due_date" class="form-control" placeholder="i.e. 2015-03-15 19:30:00">
+                <span class="error">
+                    {% if form.due_date.errors %}
+                        {% for error in form.due_date.errors %}
+                            {{ error }}
+                        {% endfor %}
+                    {% endif %}
+                </span>
             </div>
             <div class="form-group">
                 <label>Priority:</label>
@@ -82,11 +96,11 @@
             </thead>
             {% for c in past_appointments %}
                 <tr>
-                    <td>{{ o.name }}</td>
-                    <td>{{ o.due_date }}</td>
-                    <td>{{ o.priority }}</td>
-                    <td>{{ o.posted_date }}</td>
-                    <td >{{ o.poster.name }}</td>
+                    <td>{{ c.name }}</td>
+                    <td>{{ c.due_date }}</td>
+                    <td>{{ c.priority }}</td>
+                    <td>{{ c.posted_date }}</td>
+                    <td >{{ c.poster.name }}</td>
                     <td>
                         <a href="{{ url_for('delete_entry', appointment_id = c.appointment_id) }}">Delete</a>
                     </td>

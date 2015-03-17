@@ -4,6 +4,7 @@ from functools import wraps
 from time import localtime, strftime
 from forms import AddAppointmentForm, RegisterForm, LoginForm
 from flask.ext.sqlalchemy import SQLAlchemy
+from sqlalchemy.exc import IntegrityError
 import datetime
 
 app = Flask(__name__)
@@ -24,6 +25,7 @@ def login_required(test):
     return wrap
 
 @app.route('/logout/')
+@login_required
 def logout():
     session.pop('logged_in', None)
     session.pop('user_id', None)
@@ -32,7 +34,6 @@ def logout():
 
 @app.route('/', methods=['GET', 'POST'])
 def login():
-    error = None
     form = LoginForm(request.form)
     if request.method == 'POST':
         if form.validate():
@@ -47,11 +48,11 @@ def login():
                 else:
                     session['logged_in'] = True
                     session['user_id'] = u.id
+                    session['role'] = u.role
                     flash('You are logged in. Schedule like mad!.')
                     return redirect(url_for('appointments'))
         else:
-            error = 'Provided data is invalid. ' + str(form.errors)
-            return render_template("login.html", form=form, error=error)
+            return render_template("login.html", form=form)
     if request.method == 'GET':
         return render_template('login.html', form=form)
 
@@ -75,7 +76,6 @@ def appointments():
 @app.route('/add/', methods=['POST'])
 @login_required
 def new_appointment():
-    error = None
     form = AddAppointmentForm(request.form)
     if request.method == 'POST':
         if form.validate():
@@ -91,8 +91,7 @@ def new_appointment():
                 db.session.commit()
                 flash('New entry was successfully posted. Thanks.')
         else:
-            error = 'Provided appointment data is invalid. ' + str(form.errors)
-            return render_template("appointments.html", error=error)
+            return render_template("appointments.html", form=form)
     return redirect(url_for('appointments'))
 
 # Delete Appointments
@@ -100,10 +99,15 @@ def new_appointment():
 @login_required
 def delete_entry(appointment_id):
     apo_id = appointment_id
-    db.session.query(Appointment).filter_by(appointment_id=apo_id).delete()
-    db.session.commit()
-    flash('The appointment was deleted.')
-    return redirect(url_for('appointments'))
+    appointment = db.session.query(Appointment).filter_by(appointment_id=apo_id)
+    if session['user_id'] == appointment.first().user_id or session['role'] == "admin":
+        appointment.delete()
+        db.session.commit()
+        flash('The appointment was deleted successfully')
+        return redirect(url_for('appointments'))
+    else:
+        flash('You can only delete appointments that you have created')
+        return redirect(url_for('appointments'))
 
 # User Registration:
 @app.route('/register/', methods=['GET', 'POST'])
@@ -118,14 +122,21 @@ def register():
                     form.email.data,
                     form.password.data,
                 )
-                db.session.add(new_user)
-                db.session.commit()
-                flash('New user created successfully. Please login.')
-                return redirect(url_for('login'))
-            else:
-                return render_template('register.html', form=form, error=error)
+                try:
+                    db.session.add(new_user)
+                    db.session.commit()
+                    flash('New user created successfully. Please login.')
+                    return redirect(url_for('login'))
+                except IntegrityError:
+                    error = 'Provided username and password exist already, try again with different values'
+                    return render_template('register.html', form=form, error=error)
         else:
-            error = 'Provided data is not valid. More info:' + str(form.errors)
             return render_template('register.html', form=form, error=error)
     if request.method == 'GET':
         return render_template('register.html', form=form)
+
+def flash_errors(form):
+    for field, errors in form.errors.items():
+        for error in errors:
+            flash(u"Error in the %s field - %s" % (
+            getattr(form, field).label.text, error), 'error')
