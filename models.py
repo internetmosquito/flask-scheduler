@@ -34,6 +34,7 @@ class User(db.Model):
     password = db.Column(db.String, nullable=False)
     appointments = db.relationship('Appointment', backref='poster')
     role = db.Column(db.String, default='user')
+    permissions = db.Column(db.String, default='normal')
 
     def __init__(self, name=None, email=None, password=None, role=None):
         self.name = name
