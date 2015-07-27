@@ -5,9 +5,10 @@ __author__ = 'mosquito'
 import os
 import unittest
 
-from views import app, db
-from config import basedir
-from models import User
+from project import app, db
+from project._config import basedir
+from project.models import User
+
 
 TEST_DB = 'test.db'
 
@@ -98,7 +99,7 @@ class UsersTests(unittest.TestCase):
     def test_users_can_login(self):
         self.register()
         response = self.login('MisterWhiteMan', 'president')
-        self.assertIn('You are logged in. Schedule like mad!.', response.data)
+        self.assertIn('You are logged in. Schedule like mad!', response.data)
 
     def test_user_registration(self):
         self.app.get('register/', follow_redirects=True)

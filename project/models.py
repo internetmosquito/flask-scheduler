@@ -1,6 +1,8 @@
 __author__ = 'mosquito'
-from views import db
 import datetime
+
+from project import db
+
 
 class Appointment(db.Model):
 
@@ -21,7 +23,7 @@ class Appointment(db.Model):
         self.user_id = user_id
 
     def __repr__(self):
-        return '<name %r>' % (self.name)
+        return '<name {0}>'.format(self.name)
 
 
 class User(db.Model):
@@ -34,7 +36,7 @@ class User(db.Model):
     password = db.Column(db.String, nullable=False)
     appointments = db.relationship('Appointment', backref='poster')
     role = db.Column(db.String, default='user')
-    permissions = db.Column(db.String, default='normal')
+
 
     def __init__(self, name=None, email=None, password=None, role=None):
         self.name = name

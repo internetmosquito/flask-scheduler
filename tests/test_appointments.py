@@ -5,9 +5,10 @@ __author__ = 'mosquito'
 import os
 import unittest
 
-from views import app, db
-from config import basedir
-from models import Appointment, User
+from project import app, db
+from project._config import basedir
+from project.models import Appointment, User
+
 
 TEST_DB = 'test.db'
 

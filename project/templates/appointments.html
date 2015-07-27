@@ -1,11 +1,11 @@
-{% extends "template.html" %}
+{% extends "_base.html" %}
 {% block content %}
 <div>
     <a class="btn btn-danger" href="/logout">Logout</a>
 </div>
 <div class="add-task">
     <h3>Add a new appointment:</h3>
-        <form class="form-horizontal" action="{{ url_for('new_appointment') }}" method="post">
+        <form class="form-horizontal" action="{{ url_for('appointments.new_appointment') }}" method="post">
             {{ form.csrf_token }}
             <div class="form-group">
                 <label >Name:</label>
@@ -72,7 +72,7 @@
                 <td>{{ o.posted_date }}</td>
                 <td >{{ o.poster.name }}</td>
                 <td>
-                    <a href="{{ url_for('delete_entry', appointment_id = o.appointment_id) }}">Delete</a>
+                    <a href="{{ url_for('appointments.delete_entry', appointment_id = o.appointment_id) }}">Delete</a>
                 </td>
             </tr>
             {% endfor %}
@@ -102,7 +102,7 @@
                     <td>{{ c.posted_date }}</td>
                     <td >{{ c.poster.name }}</td>
                     <td>
-                        <a href="{{ url_for('delete_entry', appointment_id = c.appointment_id) }}">Delete</a>
+                        <a href="{{ url_for('appointments.delete_entry', appointment_id = c.appointment_id) }}">Delete</a>
                     </td>
                 </tr>
             {% endfor %}
