@@ -198,6 +198,5 @@ class UsersTests(unittest.TestCase):
         for user in users:
             self.assertEquals(user.role, 'user')
 
-
 if __name__ == "__main__":
     unittest.main()

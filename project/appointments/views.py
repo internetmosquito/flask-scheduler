@@ -56,16 +56,27 @@ def closed_appointments():
 def appointments():
     # Get current date
     current_datetime = strftime("%Y-%m-%d %H:%M:%S", localtime())
-    future_appointments = db.session.query(Appointment)\
-        .filter(Appointment.due_date >= current_datetime)\
-        .order_by(Appointment.due_date.asc())
-    past_appointments = db.session.query(Appointment)\
-        .filter(Appointment.due_date < current_datetime)\
-        .order_by(Appointment.due_date.asc())
+    if session['role'] == u'admin':
+        future_appointments = db.session.query(Appointment)\
+            .filter(Appointment.due_date >= current_datetime)\
+            .order_by(Appointment.due_date.asc())
+        past_appointments = db.session.query(Appointment)\
+            .filter(Appointment.due_date < current_datetime)\
+            .order_by(Appointment.due_date.asc())
+    else:
+        future_appointments = db.session.query(Appointment)\
+            .filter(Appointment.due_date >= current_datetime)\
+            .filter(Appointment.user_id == session['user_id'])\
+            .order_by(Appointment.due_date.asc())
+        past_appointments = db.session.query(Appointment)\
+            .filter(Appointment.due_date < current_datetime)\
+            .filter(Appointment.user_id == session['user_id'])\
+            .order_by(Appointment.due_date.asc())
     return render_template('appointments.html',
         form = AddAppointmentForm(request.form),
         future_appointments=future_appointments,
-        past_appointments=past_appointments)
+        past_appointments=past_appointments,
+        username=session['name'])
 
 @appointments_blueprint.route('/add/', methods=['GET', 'POST'])
 @login_required
