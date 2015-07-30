@@ -9,6 +9,7 @@ DATABASE = 'scheduler.db'
 # avoid cross site attacks
 WTF_CSRF_ENABLED = True
 SECRET_KEY = 'super_secret_password'
+DEBUG = False
 
 # defines the full path for the database
 DATABASE_PATH = os.path.join(basedir, DATABASE)
