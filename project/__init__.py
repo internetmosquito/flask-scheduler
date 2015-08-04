@@ -11,11 +11,13 @@ db = SQLAlchemy(app)
 
 from project.users.views import users_blueprint
 from project.appointments.views import appointments_blueprint
+from project.api.views import api_blueprint
 from flask import render_template
 
 # register our blueprints
 app.register_blueprint(users_blueprint)
 app.register_blueprint(appointments_blueprint)
+app.register_blueprint(api_blueprint)
 
 # Define views for errors
 @app.errorhandler(404)
