@@ -61,17 +61,16 @@ def api_appointments():
 def appointment(appointment_id):
     result = db.session.query(Appointment).filter_by(appointment_id=appointment_id).first()
     if result:
-        json_result = {
-            'appointment_id': result.task_id,
+        result = {
+            'appointment_id': result.appointment_id,
             'appointment name': result.name,
             'due date': str(result.due_date),
             'priority': result.priority,
-            'posted date': str(result.posted_date),
-            'status': result.status,
+            'posted date': str(result.creation_date),
             'user id': result.user_id
         }
         code = 200
     else:
-        result = {"error": "Specified appointment does not exist"}
+        result = {'error': 'Specified appointment does not exist'}
         code = 404
     return make_response(jsonify(result), code)

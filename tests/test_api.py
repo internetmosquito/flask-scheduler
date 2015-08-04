@@ -69,7 +69,7 @@ class APITests(unittest.TestCase):
 
     def test_resource_endpoint_returns_correct_data(self):
         self.add_appointments()
-        response = self.app.get('api/v1/appointments/209', follow_redirects=True)
+        response = self.app.get('api/v1/appointments/2', follow_redirects=True)
         self.assertEquals(response.status_code, 200)
         self.assertEquals(response.mimetype, 'application/json')
         self.assertIn(b'Become a Jedi', response.data)
