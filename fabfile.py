@@ -20,8 +20,9 @@ def commit():
 def push():
     #Get the current branch we're working on
     my_branch = local('git rev-parse --abbrev-ref HEAD', capture=True)
-    git_push_command = 'git push origin '.join(my_branch)
-    print ('Git push command is '.join(git_push_command))
+    print (my_branch)
+    git_push_command = 'git push origin ' + my_branch
+    print ('Git push command is ' + git_push_command)
     local(git_push_command)
 
 
