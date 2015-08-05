@@ -1,6 +1,7 @@
 __author__ = 'mosquito'
 from fabric.api import local, settings, abort
 from fabric.contrib.console import confirm
+from fabric.api import local
 
 
 #prepare
@@ -17,7 +18,10 @@ def commit():
 
 
 def push():
-    local("git push origin master")
+    #Get the current branch we're working on
+    my_branch = local('git rev-parse --abbrev-ref HEAD', capture=True)
+    git_push_command = 'git push origin '.join(my_branch)
+    local(git_push_command)
 
 
 def prepare():
