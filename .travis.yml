@@ -10,6 +10,8 @@ deploy:
   provider: heroku
   api_key:
     secure: ONEfqMJxYfTNMh1atJlxKltkiO9TmuXU2DN10Bdi9RKuScKADan52eYWsFeRP65yf33iPq9Tv5pYuLsyu2oPe5ga36j2hsIZSm3K3Q4K1HixHwokDerbFAbN243jKyMa4Y5LEseYfegVBgv18lKEkym7yWLQgkepT7Sb8cZAvk3jCrOfWkc8Zz0XZXpsMarjkid2iIuQ9B1yoIjss55GzsX1bsTQqDCyzFgxHOrd87h1zqFM3azBpvKCOjPIByR8B8Oxx/dh2HrqzLJBYtGJb9/WWJ7MVSP+6US+QGEMUT3Z+3nK60AczOauHkOZ/Dlq/f3b1XVa/BHbECpQq0O+hFpB85lma0dUTk1zm3I7B2cDr51J6PQ0tPktn+jpJQIKVhVnaGIoXjt+ALwvjR4JDVyB4QlGl/gb5+yjV7sPMQGzdyeg6dqwV9tNT56u2uyDejIXcpBzSkq+SUv4WUc+Z/6weL1ymudwcUZevoEAu20Ue/zPgvymfL0Bv5m933m7C7Nxgmomsnb69kmrw4uZqs5cur/rXGeELdceVtC9BO33nGeIOiEWGdnoLA0xcDLC/gXopLn8MgpEANv3GMQa71LHZPIhllxmH6Y/Ee08cK4QR2hcwSq34dFc8BEmP52lnR+p3rwO7/nbPLWvLV7Zp+Lth5guykBbjHZYek+lpJY=
-  app: mighty-tundra-8907
+  app:
+    master: powerful-caverns-9741
+    m_dev: salty-ravine-1146
   on:
     repo: internetmosquito/flask-scheduler
